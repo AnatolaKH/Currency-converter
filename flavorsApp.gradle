@@ -1,0 +1,16 @@
+apply from: '../flavorsCommon.gradle'
+
+android {
+
+    productFlavors {
+
+        revolut {
+            applicationId "akh.converter"
+        }
+
+        second {
+            applicationId "akh.rates"
+        }
+
+    }
+}

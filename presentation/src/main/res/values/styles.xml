@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="TextViewStyle" parent="android:Widget.Material.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+<!--        <item name="android:hyphenationFrequency">none</item>-->
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+        <item name="android:backgroundTint">@color/colorAccent</item>
+        <item name="shapeAppearanceOverlay">@style/ButtonShapeAppearance</item>
+    </style>
+
+    <style name="ButtonShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,94 @@
+ext {
+
+    injectorImplDependency = [
+            kotlin                  : kotlinLib,
+            dagger2                 : daggerLib,
+            dagger2Android          : daggerAndroidLib,
+            dagger2AndroidSupport   : daggerAndroidSupportLib,
+            androidxAppcompat       : androidxAppcompatLib,
+            kotlinxCoroutinesCore   : kotlinxCoroutinesCoreLib,
+            kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib,
+            timber                  : timberLib,
+    ]
+
+    injectorKaptDependency = [
+            dagger2Compiler        : daggerCompilerLib,
+            dagger2AndroidProcessor: daggerAndroidProcessorLib
+    ]
+
+    dataImplDependency = [
+            dagger2                 : daggerLib,
+            dagger2Android          : daggerAndroidLib,
+            dagger2AndroidSupport   : daggerAndroidSupportLib,
+            kotlin                  : kotlinLib,
+            gson                    : gsonLib,
+            retrofit                : retrofitLib,
+            retrofitConverterGson   : retrofitConverterGsonLib,
+            ktxCore                 : ktxCoreLib,
+            kotlinxCoroutinesCore   : kotlinxCoroutinesCoreLib,
+            kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib,
+            okhttp3                 : okhttp3Lib,
+            okhttp3Logging          : okhttp3LoggingLib,
+            timber                  : timberLib
+    ]
+
+    dataKaptDependency = [
+            dagger2Compiler        : daggerCompilerLib,
+            dagger2AndroidProcessor: daggerAndroidProcessorLib
+    ]
+
+    domainImplDependency = [
+            kotlin                  : kotlinLib,
+            ktxCore                 : ktxCoreLib,
+            androidxLifecycle       : androidxLifecycleLib,
+            dagger2                 : daggerLib,
+            dagger2Android          : daggerAndroidLib,
+            dagger2AndroidSupport   : daggerAndroidSupportLib,
+            kotlinxCoroutinesCore   : kotlinxCoroutinesCoreLib,
+            kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib
+    ]
+
+    domainKaptDependency = [
+            dagger2Compiler        : daggerCompilerLib,
+            dagger2AndroidProcessor: daggerAndroidProcessorLib
+    ]
+
+    domainTestImplDependency = [
+            junit                   : junitLib,
+            mockk                   : mockkLib,
+            androidxLifecycle       : androidxLifecycleLib,
+            kotlinxCoroutinesCore   : kotlinxCoroutinesCoreLib,
+            kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib,
+            kotlinxCoroutinesTest   : kotlinxCoroutinesTestLib,
+            androidxArchCoreTesting : androidxArchCoreTestingLib
+    ]
+
+    presentationImplDependency = [
+            kotlin                    : kotlinLib,
+            androidxAppcompat         : androidxAppcompatLib,
+            androidxLifecycle         : androidxLifecycleLib,
+            androidxLifecycleViewModel: androidxLifecycleViewModelLib,
+            androidxConstraintlayout  : androidxConstraintlayoutLib,
+            androidxRecyclerview      : androidxRecyclerviewLib,
+            dagger2                   : daggerLib,
+            dagger2Android            : daggerAndroidLib,
+            dagger2AndroidSupport     : daggerAndroidSupportLib,
+            ktxCore                   : ktxCoreLib,
+            kotlinxCoroutinesCore     : kotlinxCoroutinesCoreLib,
+            kotlinxCoroutinesAndroid  : kotlinxCoroutinesAndroidLib,
+            adapterDelegates4         : adapterDelegates4Lib,
+            timber                    : timberLib,
+            googleAndroidMaterial     : googleAndroidMaterialLib,
+            glide     : glideLib
+    ]
+
+    presentationKaptDependency = [
+            dagger2Compiler        : daggerCompilerLib,
+            dagger2AndroidProcessor: daggerAndroidProcessorLib
+    ]
+
+    coreImplDependency = [
+            androidxLifecycle: androidxLifecycleLib
+    ]
+
+}

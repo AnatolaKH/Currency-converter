@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextViewStyle.500" parent="android:Widget.TextView">
+        <item name="android:textFontWeight">500</item>
+    </style>
+
+</resources>

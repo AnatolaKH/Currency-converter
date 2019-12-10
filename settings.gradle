@@ -1,0 +1,2 @@
+include ':app', ':core', ':data', ':presentation', ':domain'
+rootProject.name='Currency converter'

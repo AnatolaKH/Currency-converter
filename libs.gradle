@@ -1,0 +1,71 @@
+ext {
+
+    kotlin_version = '1.3.60'
+
+    kotlinLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    okhttp3_version = '4.0.1'
+    okhttp3_logging_version = '4.0.1'
+    okhttp3Lib = "com.squareup.okhttp3:okhttp:$okhttp3_version"
+    okhttp3LoggingLib = "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_version"
+
+    gson_version = '2.3.0'
+    gsonLib = "com.squareup.retrofit2:converter-gson:$gson_version"
+
+    retrofit_version = '2.6.2'
+    retrofitLib = "com.squareup.retrofit2:retrofit:$retrofit_version"
+    retrofitConverterGsonLib = "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    core_ktx_version = '1.0.1'
+    fragment_ktx_version = '1.1.0'
+    ktxCoreLib = "androidx.core:core-ktx:$core_ktx_version"
+    ktxFragmentLib = "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+
+    androidx_lifecycle_version = '2.1.0'
+    androidx_app_compat_version = '1.1.0-rc01'
+    androidx_constraint_layout_version = '1.1.3'
+    androidx_recyclerview_version = '1.0.0'
+    androidxLifecycleLib = "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
+    androidxLifecycleViewModelLib = "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
+    androidxAppcompatLib = "androidx.appcompat:appcompat:$androidx_app_compat_version"
+    androidxConstraintlayoutLib = "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version"
+    androidxRecyclerviewLib = "androidx.recyclerview:recyclerview:$androidx_recyclerview_version"
+
+    google_android_material_version = '1.2.0-alpha02'
+    googleAndroidMaterialLib = "com.google.android.material:material:${google_android_material_version}"
+
+    glide_version = '4.9.0'
+    glideLib = "com.github.bumptech.glide:glide:$glide_version"
+
+    kotlinx_coroutines_version = '1.3.1'
+    kotlin_coroutines_test_version = '1.3.0-RC'
+    kotlinxCoroutinesCoreLib = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    kotlinxCoroutinesAndroidLib = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+    kotlinxCoroutinesTestLib = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_coroutines_test_version"
+
+    dagger2_version = '2.25.2'
+    daggerLib = "com.google.dagger:dagger:$dagger2_version"
+    daggerCompilerLib = "com.google.dagger:dagger-compiler:$dagger2_version"
+    daggerAndroidLib = "com.google.dagger:dagger-android:$dagger2_version"
+    daggerAndroidSupportLib = "com.google.dagger:dagger-android-support:$dagger2_version"
+    daggerAndroidProcessorLib = "com.google.dagger:dagger-android-processor:$dagger2_version"
+
+    adapter_delegates4_version = '4.2.0'
+    adapterDelegates4Lib = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$adapter_delegates4_version"
+
+    timber_version = '4.7.1'
+    timberLib = "com.jakewharton.timber:timber:$timber_version"
+
+    junit_version = '4.12'
+    junitLib = "junit:junit:$junit_version"
+
+    mockk_version = '1.9.3'
+    mockkLib = "io.mockk:mockk:$mockk_version"
+
+    androidx_arch_core_testing_version = '2.0.1'
+    androidxArchCoreTestingLib = "androidx.arch.core:core-testing:$androidx_arch_core_testing_version"
+
+    glide_version = '4.9.0'
+    glideLib = "com.github.bumptech.glide:glide:$glide_version"
+}
+
