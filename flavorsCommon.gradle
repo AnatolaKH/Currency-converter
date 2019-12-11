@@ -3,7 +3,17 @@ android {
     flavorDimensions "default"
 
     productFlavors {
-        
+
+        exchangeRate {
+            minSdkVersion androidMinSdkVersion
+            targetSdkVersion androidTargetSdkVersion
+            versionName "1.0.0" + "." + getDate()
+            versionCode 1
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+            testInstrumentationRunner 'akh.rates.MockTestRunner'
+            buildConfigField "String", "BASE_URL", "\"https://api.exchangeratesapi.io/latest\""
+        }
+
         revolut {
             minSdkVersion androidMinSdkVersion
             targetSdkVersion androidTargetSdkVersion
@@ -13,16 +23,6 @@ android {
             testInstrumentationRunner 'akh.revoluttesttask.MockTestRunner'
             buildConfigField "String", "BASE_URL", "\"https://revolut.duckdns.org\""
 
-        }
-
-        second {
-            minSdkVersion androidMinSdkVersion
-            targetSdkVersion androidTargetSdkVersion
-            versionName "1.0.0" + "." + getDate()
-            versionCode 1
-            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-            testInstrumentationRunner 'akh.rates.MockTestRunner'
-            buildConfigField "String", "BASE_URL", "\"https://revolut.duckdns.org\""
         }
 
     }

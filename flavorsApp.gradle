@@ -4,12 +4,12 @@ android {
 
     productFlavors {
 
-        revolut {
-            applicationId "akh.converter"
+        exchangeRate {
+            applicationId "akh.rates"
         }
 
-        second {
-            applicationId "akh.rates"
+        revolut {
+            applicationId "akh.converter"
         }
 
     }
