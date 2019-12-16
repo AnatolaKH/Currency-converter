@@ -14,7 +14,7 @@
 
 ### Screenshots
 
-![](project_description_img/CC_1.png) ![](project_description_img/CC_2.png)
+![](proj_description_img/CC_1.png) ![](proj_description_img/CC_2.png)
 
 ### Uses library
 
