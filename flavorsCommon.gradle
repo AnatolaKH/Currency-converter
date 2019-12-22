@@ -11,7 +11,7 @@ android {
             versionCode 1
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
             testInstrumentationRunner 'akh.rates.MockTestRunner'
-            buildConfigField "String", "BASE_URL", "\"https://api.exchangeratesapi.io/latest\""
+            buildConfigField "String", "BASE_URL", "\"https://api.exchangeratesapi.io\""
         }
 
         revolut {

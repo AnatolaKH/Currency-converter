@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="akh.presentation">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="akh.presentation">
 
+    <application>
+        <activity
+            android:name="akh.presentation.ui.features.MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustNothing"/>
+    </application>
 
 </manifest>
