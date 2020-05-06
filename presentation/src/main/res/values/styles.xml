@@ -1,12 +1,30 @@
 <resources>
 
     <style name="TextViewStyle" parent="android:Widget.Material.TextView">
-        <item name="android:fontFamily">sans-serif</item>
-<!--        <item name="android:hyphenationFrequency">none</item>-->
+        <item name="android:fontFamily">@font/jet_brains_mono</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="BoldText" parent="TextViewStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BoldText.Title" >
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="HintText" parent="TextViewStyle">
+        <item name="android:textColor">@color/textColorTertiary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="EditText" parent="TextViewStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ButtonStyle" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:fontFamily">@font/jet_brains_mono</item>
         <item name="android:textColor">@color/buttonTextColor</item>
         <item name="android:backgroundTint">@color/colorAccent</item>
         <item name="shapeAppearanceOverlay">@style/ButtonShapeAppearance</item>
@@ -15,7 +33,6 @@
     <style name="ButtonShapeAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">4dp</item>
-
     </style>
 
 </resources>

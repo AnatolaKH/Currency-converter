@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+    <style name="AppTheme" parent="BaseTheme">
 
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,10 +21,8 @@
 
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
-
+    <style name="SplashTheme" parent="BaseTheme">
         <item name="android:windowBackground">@drawable/bg_splash</item>
-
     </style>
 
 </resources>

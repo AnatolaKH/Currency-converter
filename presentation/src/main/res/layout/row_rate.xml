@@ -17,14 +17,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCountryCode"
-        style="@style/TextViewStyle.500"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/tvCountryTitle"
         app:layout_constraintEnd_toStartOf="@+id/etExchange"
         app:layout_constraintStart_toEndOf="@id/ivCountry"
@@ -38,7 +35,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        style="@style/HintText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/etExchange"
         app:layout_constraintStart_toEndOf="@id/ivCountry"
@@ -47,7 +44,7 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etExchange"
-        style="@style/TextViewStyle.500"
+        style="@style/EditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -56,8 +53,6 @@
         android:inputType="numberDecimal"
         android:maxEms="8"
         android:minEms="2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -65,9 +65,9 @@ class ConverterFragment : BaseFragment() {
     override fun setUI(savedInstanceState: Bundle?) {
         rvRate.apply {
             rvRate.setItemViewCacheSize(20)
-            adapter = rateAdapter
             layoutManager = LinearLayoutManager(this.context)
             setHasFixedSize(true)
+            adapter = rateAdapter
         }
         rvRate.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

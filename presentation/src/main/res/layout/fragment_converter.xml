@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.features.MainActivity">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTitle"
-        style="@style/TextViewStyle.500"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="72dp"
@@ -16,8 +15,7 @@
         android:paddingEnd="72dp"
         android:paddingBottom="16dp"
         android:text="@string/rates"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textSize="20sp"
+        style="@style/BoldText.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,8 +32,6 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRetry"
-        android:visibility="gone"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
