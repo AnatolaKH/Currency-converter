@@ -36,7 +36,6 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         coVerifyOrder {
             useCase.getRates()
             useCase["postProgressState"]()
-            useCase.bgDispatcherDefault
             useCase["setRates"](fakeResponse)
             useCase["calculateRates"](fakeResponse.base.exchange, fakeRates)
             useCase["postSuccessState"](fakeRates)
@@ -64,7 +63,6 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         coVerifyOrder {
             useCase.getRates()
             useCase["postProgressState"]()
-            useCase.bgDispatcherDefault
             useCase["postFailureState"](response.a)
         }
         confirmVerified(useCase)

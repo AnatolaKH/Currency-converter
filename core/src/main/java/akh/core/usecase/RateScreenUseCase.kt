@@ -4,7 +4,7 @@ import akh.core.model.RateModel
 import akh.core.model.RatesState
 import androidx.lifecycle.LiveData
 
-interface RateScreenUseCase {
+interface RateScreenUseCase: BaseUseCase {
 
     val rateLiveData: LiveData<RatesState>
 
@@ -13,7 +13,5 @@ interface RateScreenUseCase {
     suspend fun exchange(exchange: String)
 
     suspend fun getRates()
-
-    fun stopRateUpdater()
 
 }

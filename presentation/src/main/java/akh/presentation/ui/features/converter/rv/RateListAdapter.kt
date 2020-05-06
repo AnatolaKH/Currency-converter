@@ -6,16 +6,16 @@ import akh.presentation.ui.base.BaseRVListAdapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 
-class RateRVListAdapter(
+class RateListAdapter(
     private val action: (target: RateModel) -> Unit,
     private val exchange: (value: String) -> Unit
 ) : BaseRVListAdapter<RateModel>(RateDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RateModel> =
-         RateRVHolder.create(parent, action, exchange)
+         RateHolder.create(parent, action, exchange)
 
     override fun onBindViewHolder(holder: BaseHolder<RateModel>, position: Int) {
-        if (holder is RateRVHolder) holder.bind(position == 0, getItem(position))
+        if (holder is RateHolder) holder.bind(position == 0, getItem(position))
     }
 
     override fun onBindViewHolder(
@@ -30,8 +30,8 @@ class RateRVListAdapter(
 
     private fun checkPayload(holder: BaseHolder<RateModel>, position: Int, payload: Any) {
         when (payload) {
-            is String -> if (position != 0) (holder as RateRVHolder).bind(payload)
-            is Boolean -> (holder as RateRVHolder).bind(payload)
+            is String -> if (position != 0) (holder as RateHolder).bind(payload)
+            is Boolean -> (holder as RateHolder).bind(payload)
         }
     }
 

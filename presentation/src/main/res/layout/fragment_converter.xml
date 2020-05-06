@@ -8,6 +8,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTitle"
+        style="@style/BoldText.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="72dp"
@@ -15,39 +16,41 @@
         android:paddingEnd="72dp"
         android:paddingBottom="16dp"
         android:text="@string/rates"
-        style="@style/BoldText.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/pbRates"
+        android:id="@+id/progress"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:indeterminate="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRetry"
+        android:id="@+id/retryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/retry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRate"
+        android:id="@+id/ratesList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:listitem="@layout/row_rate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

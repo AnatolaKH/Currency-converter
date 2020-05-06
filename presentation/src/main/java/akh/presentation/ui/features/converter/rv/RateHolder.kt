@@ -11,7 +11,6 @@ import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -19,7 +18,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.row_rate.*
 
 
-class RateRVHolder(
+class RateHolder(
     view: View,
     private val action: (target: RateModel) -> Unit,
     private val exchange: (value: String) -> Unit
@@ -90,10 +89,10 @@ class RateRVHolder(
             parent: ViewGroup,
             action: (target: RateModel) -> Unit,
             exchange: (value: String) -> Unit
-        ): RateRVHolder {
+        ): RateHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.row_rate, parent, false)
-            return RateRVHolder(view, action, exchange)
+            return RateHolder(view, action, exchange)
         }
     }
 

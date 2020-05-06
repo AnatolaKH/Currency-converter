@@ -30,7 +30,6 @@ class RateUseCaseTest : BaseUseCaseTest<RateUseCaseImpl>() {
         val result = useCase.getRates()
         coVerifyOrder {
             useCase.getRates()
-            useCase.bgDispatcherIO
         }
         confirmVerified(useCase)
         // assert
@@ -47,7 +46,6 @@ class RateUseCaseTest : BaseUseCaseTest<RateUseCaseImpl>() {
         val result = useCase.getRates()
         coVerifyOrder {
             useCase.getRates()
-            useCase.bgDispatcherIO
         }
         confirmVerified(useCase)
         // assert
@@ -65,7 +63,6 @@ class RateUseCaseTest : BaseUseCaseTest<RateUseCaseImpl>() {
         val result = useCase.getActualRates("EUR")
         coVerifyOrder {
             useCase.getActualRates("EUR")
-            useCase.bgDispatcherIO
         }
         confirmVerified(useCase)
         // assert
@@ -82,7 +79,6 @@ class RateUseCaseTest : BaseUseCaseTest<RateUseCaseImpl>() {
         val result =  useCase.getActualRates("EUR")
         coVerifyOrder {
             useCase.getActualRates("EUR")
-            useCase.bgDispatcherIO
         }
         confirmVerified(useCase)
         // assert

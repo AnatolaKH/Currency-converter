@@ -5,7 +5,7 @@ import akh.core.base.Result
 import akh.core.model.ActualRatesModel
 import akh.core.model.RatesModel
 
-interface RateUseCase {
+interface RateUseCase: BaseUseCase {
 
     suspend fun getRates(): Result<Failure, RatesModel>
 

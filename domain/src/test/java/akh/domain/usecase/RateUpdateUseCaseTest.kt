@@ -11,7 +11,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class RateUpdateUseCaseTest  : BaseUseCaseTest<RateUpdateUseCaseImpl>() {
+class RateUpdateUseCaseTest : BaseUseCaseTest<RateUpdateUseCaseImpl>() {
 
     private val rateUseCase = mockk<RateUseCase>(relaxed = true)
 
@@ -31,10 +31,8 @@ class RateUpdateUseCaseTest  : BaseUseCaseTest<RateUpdateUseCaseImpl>() {
         useCase.updateRates(::getActualRates, ::updateRates)
         coVerifyOrder {
             useCase.updateRates(::getActualRates, ::updateRates)
-            useCase.foregroundDispatcher
-            useCase.foregroundDispatcher
+            useCase.useCaseScope
             useCase["getLastRates"](::getActualRates, ::updateRates)
-            useCase.bgDispatcherDefault
             useCase["updateRates"](response.b, getActualRates(), ::updateRates)
         }
         confirmVerified(useCase)

@@ -33,7 +33,7 @@ class ConverterViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        rateScreenUseCase.stopRateUpdater()
+        rateScreenUseCase.onCleared()
     }
 
 }

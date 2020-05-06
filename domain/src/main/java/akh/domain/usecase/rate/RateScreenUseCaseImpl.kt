@@ -9,6 +9,7 @@ import akh.core.usecase.RateUpdateUseCase
 import akh.core.usecase.RateUseCase
 import akh.domain.common.calculateExchange
 import akh.domain.common.getRates
+import akh.domain.common.withDefault
 import akh.domain.usecase.BaseUseCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -36,7 +37,7 @@ class RateScreenUseCaseImpl @Inject constructor(
     }
 
     private fun calculateRates(exchange: String, rates: MutableList<RateModel>) {
-        for (i in 1 until rates.size) rates[i].calculateExchange(exchange)
+        rates.forEachIndexed { index, rate -> if (index != 0) rate.calculateExchange(exchange) }
     }
 
     private fun releaseRatesAutoUpdates() {
@@ -55,7 +56,6 @@ class RateScreenUseCaseImpl @Inject constructor(
             cancel()
             purge()
         }
-        rateUpdateUseCase.unsubscribe()
     }
 
     private fun postProgressState() =
@@ -72,25 +72,23 @@ class RateScreenUseCaseImpl @Inject constructor(
 
     override suspend fun getRates() {
         postProgressState()
-        withContext(bgDispatcherDefault) {
+        withDefault {
             rateUseCase.getRates().either(::postFailureState, ::setRates)
         }
     }
-
-    override fun stopRateUpdater() = stopRatesAutoUpdates()
 
     private fun updateRates() {
         rateUpdateUseCase.updateRates({ getLastRates() ?: emptyList() }, ::postSuccessState)
     }
 
     @Synchronized
-    override suspend fun setTarget(rate: RateModel) = withContext(bgDispatcherDefault) {
+    override suspend fun setTarget(rate: RateModel) = withDefault {
         getLastRates()?.let { lastRates ->
             val rates = ArrayList<RateModel>().apply {
                 lastRates.forEach { rate -> add(rate.copy(isBase = false)) }
             }
             val targetIndex = rates.indexOfFirst { mRate -> mRate.countryCode == rate.countryCode }
-            if (targetIndex < 0) return@withContext
+            if (targetIndex < 0) return@withDefault
             val temp = rates[targetIndex].copy(isBase = true)
             rates.removeAt(targetIndex)
             rates.add(0, temp)
@@ -98,13 +96,18 @@ class RateScreenUseCaseImpl @Inject constructor(
         } ?: Unit
     }
 
-    override suspend fun exchange(exchange: String) = withContext(bgDispatcherDefault) {
+    override suspend fun exchange(exchange: String) = withDefault {
         getLastRates()?.firstOrNull()?.exchange = exchange
         val rates = ArrayList<RateModel>().apply {
             getLastRates()?.forEach { rate -> add(rate.copy()) }
         }
         calculateRates(exchange, rates.toMutableList())
         postSuccessState(rates)
+    }
+
+    override fun onCleared() {
+        stopRatesAutoUpdates()
+        rateUpdateUseCase.onCleared()
     }
 
 }

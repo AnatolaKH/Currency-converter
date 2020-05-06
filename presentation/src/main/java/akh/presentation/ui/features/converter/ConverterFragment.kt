@@ -6,7 +6,7 @@ import akh.core.model.RatesState
 import akh.presentation.R
 import akh.presentation.common.*
 import akh.presentation.ui.base.BaseFragment
-import akh.presentation.ui.features.converter.rv.RateRVListAdapter
+import akh.presentation.ui.features.converter.rv.RateListAdapter
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +21,8 @@ class ConverterFragment : BaseFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by androidLazy { getViewModel<ConverterViewModel>(viewModelFactory) }
 
-    private val rateAdapter: RateRVListAdapter by androidLazy {
-        RateRVListAdapter(::changeTarget, ::exchange)
+    private val rateAdapter: RateListAdapter by androidLazy {
+        RateListAdapter(::changeTarget, ::exchange)
     }
 
     private fun setRatesState(ratesState: RatesState) {
@@ -34,22 +34,22 @@ class ConverterFragment : BaseFragment() {
     }
 
     private fun setRates(rates: List<RateModel>) {
-        pbRates.toGone()
-        rvRate.toVisible()
-        btnRetry.toGone()
+        progress.toGone()
+        ratesList.toVisible()
+        retryButton.toGone()
         rateAdapter.submitList(rates)
     }
 
     private fun showProgress() {
-        pbRates.toVisible()
-        rvRate.toInvisible()
-        btnRetry.toGone()
+        progress.toVisible()
+        ratesList.toInvisible()
+        retryButton.toGone()
     }
 
     private fun showRetry() {
-        pbRates.toGone()
-        rvRate.toInvisible()
-        btnRetry.toVisible()
+        progress.toGone()
+        ratesList.toInvisible()
+        retryButton.toVisible()
     }
 
     private fun changeTarget(rateModel: RateModel) {
@@ -63,13 +63,13 @@ class ConverterFragment : BaseFragment() {
     override fun getLayoutID(): Int = R.layout.fragment_converter
 
     override fun setUI(savedInstanceState: Bundle?) {
-        rvRate.apply {
-            rvRate.setItemViewCacheSize(20)
+        ratesList.apply {
+            ratesList.setItemViewCacheSize(20)
             layoutManager = LinearLayoutManager(this.context)
             setHasFixedSize(true)
             adapter = rateAdapter
         }
-        rvRate.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        ratesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 recyclerView.hideKeyboard()
                 super.onScrollStateChanged(recyclerView, newState)
@@ -78,11 +78,11 @@ class ConverterFragment : BaseFragment() {
 
         rateAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
-                rvRate?.layoutManager?.scrollToPosition(0)
+                ratesList?.layoutManager?.scrollToPosition(0)
             }
         })
 
-        btnRetry.setOnClickListener { viewModel.getRates() }
+        retryButton.setOnClickListener { viewModel.getRates() }
     }
 
     override fun observeViewModel() {
