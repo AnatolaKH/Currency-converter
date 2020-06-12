@@ -14,4 +14,6 @@ interface RateScreenUseCase: BaseUseCase {
 
     suspend fun getRates()
 
+    suspend fun updateRates()
+
 }

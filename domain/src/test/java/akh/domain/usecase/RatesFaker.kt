@@ -13,7 +13,6 @@ fun getFakeRatesResponse() = RatesModel(
         "100",
         true
     ),
-    date = "",
     rates = listOf(
         RateModel(
             "USD",
@@ -28,7 +27,6 @@ fun getFakeRatesResponse() = RatesModel(
 
 fun getFakeActualRatesResponse() = ActualRatesModel(
     "EUR",
-    "",
     mapOf()
 )
 

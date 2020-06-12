@@ -6,8 +6,19 @@
 
     <color name="bg">#E5E5E5</color>
 
+    <color name="tertiary">#808B959E</color>
+
     <color name="text">#191C1F</color>
     <color name="textTertiary">#8B959E</color>
 
     <color name="buttonText">#E5E5E5</color>
+
+    <!--    DARK-->
+
+    <color name="bgDark">#0B1022</color>
+
+    <color name="textDark">#F0F0F0</color>
+    <color name="textTertiaryDark">#8B959E</color>
+
+    <color name="buttonTextDark">#E5E5E5</color>
 </resources>

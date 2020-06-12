@@ -1,6 +1,6 @@
 package akh.converter.di
 
-import akh.core.App
+import akh.core.app.App
 import akh.core.di.MainToolsProvider
 import akh.converter.di.module.AppModule
 import dagger.BindsInstance

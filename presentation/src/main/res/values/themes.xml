@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="RootTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
 
-    <style name="AppTheme" parent="BaseTheme">
+    <style name="BaseTheme" parent="RootTheme">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
 
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:colorBackground">@color/bgColor</item>
-
-        <item name="android:textViewStyle">@style/TextViewStyle</item>
-        <item name="android:buttonStyle">@style/ButtonStyle</item>
-
-        <item name="android:textColorPrimary">@color/textColor</item>
-        <item name="android:textColorSecondary">@color/textColor</item>
-        <item name="android:textColorTertiary">@color/textColorTertiary</item>
-        <item name="android:textColorLink">@color/colorAccent</item>
-
+        <item name="android:buttonStyle">@style/Button</item>
     </style>
 
-    <style name="SplashTheme" parent="BaseTheme">
-        <item name="android:windowBackground">@drawable/bg_splash</item>
+    <style name="AppTheme" parent="BaseTheme" />
+
+    <style name="AppTheme.Light">
+        <item name="android:textAppearance">@style/Text</item>
+        <item name="android:textAppearanceSmall">@style/SmallText</item>
+        <item name="android:textAppearanceMedium">@style/MediumText</item>
+        <item name="android:textAppearanceLarge">@style/LargeText</item>
+
+        <item name="android:colorBackground">@color/bgColor</item>
+    </style>
+
+    <style name="AppTheme.Dark">
+        <item name="android:textAppearance">@style/TextDark</item>
+        <item name="android:textAppearanceSmall">@style/SmallTextDark</item>
+        <item name="android:textAppearanceMedium">@style/MediumTextDark</item>
+        <item name="android:textAppearanceLarge">@style/LargeTextDark</item>
+
+        <item name="android:colorBackground">@color/bgColorDark</item>
     </style>
 
 </resources>

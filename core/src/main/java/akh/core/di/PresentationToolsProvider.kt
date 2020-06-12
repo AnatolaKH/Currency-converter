@@ -1,3 +1,5 @@
 package akh.core.di
 
-interface PresentationToolsProvider
+import akh.core.di.presentation.AppThemeToolsProvider
+
+interface PresentationToolsProvider : AppThemeToolsProvider

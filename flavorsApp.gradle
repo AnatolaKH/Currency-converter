@@ -8,9 +8,5 @@ android {
             applicationId "akh.rates"
         }
 
-        revolut {
-            applicationId "akh.converter"
-        }
-
     }
 }

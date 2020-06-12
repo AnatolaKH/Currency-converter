@@ -1,13 +1,14 @@
 package akh.converter.di
 
+import akh.converter.App
 import akh.core.di.DataToolsProvider
 import akh.core.di.DomainToolsProvider
 import akh.core.di.MainToolsProvider
 import akh.core.di.PresentationToolsProvider
 import akh.data.di.DataComponent
+import akh.data.di.PresentationDataComponent
 import akh.domain.di.DomainComponent
 import akh.presentation.di.PresentationComponent
-import akh.converter.App
 import akh.presentation.di.module.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
@@ -59,10 +60,15 @@ interface AppComponent : AndroidInjector<App> {
 
                 val dataToolsProvider = DataComponent.Initializer.init(mainToolsProvider)
 
+                val presentationDataToolsProvider =
+                    PresentationDataComponent.Initializer.init(dataToolsProvider)
+
                 val domainToolsProvider = DomainComponent.Initializer.init(dataToolsProvider)
 
-                val presentationToolsProvider =
-                    PresentationComponent.Initializer.init(domainToolsProvider)
+                val presentationToolsProvider = PresentationComponent.Initializer.init(
+                    domainToolsProvider,
+                    presentationDataToolsProvider
+                )
 
                 return DaggerAppComponent.builder()
                     .application(app)

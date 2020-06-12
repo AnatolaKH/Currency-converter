@@ -2,10 +2,7 @@ package akh.presentation.ui.features.converter.rv
 
 import akh.core.model.RateModel
 import akh.presentation.R
-import akh.presentation.common.hideKeyboard
-import akh.presentation.common.loadImage
-import akh.presentation.common.setTextFutureExt
-import akh.presentation.common.showKeyboard
+import akh.presentation.common.*
 import akh.presentation.ui.base.BaseHolder
 import android.annotation.SuppressLint
 import android.text.Editable
@@ -47,7 +44,7 @@ class RateHolder(
 
     override fun bind(item: RateModel) {
         etExchange?.removeTextChangedListener(this)
-        itemView.setOnClickListener { selectItem(item) }
+        itemView.setOnSingleClickListener { selectItem(item) }
         ivCountry.loadImage(item.countryFlag)
         tvCountryCode?.setTextFutureExt(item.countryCode)
         tvCountryTitle?.setTextFutureExt(item.countryName)

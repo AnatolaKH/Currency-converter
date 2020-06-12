@@ -2,10 +2,10 @@
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
         app:fontStyle="normal"
-        app:fontWeight="400"
+        app:fontWeight="500"
         app:font="@font/jbm_regular" />
     <font
         app:fontStyle="italic"
-        app:fontWeight="400"
+        app:fontWeight="500"
         app:font="@font/jbm_italic" />
 </font-family>

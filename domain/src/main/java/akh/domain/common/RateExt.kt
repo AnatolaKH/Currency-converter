@@ -14,12 +14,10 @@ fun RateModel.calculateExchange(exchange: String) {
             .toString()
 }
 
-fun LiveData<RatesState>.getRates(): List<RateModel>? =
-    this.value?.let {
-        if (it is RatesState.SuccessState)
-            it.rates
-        else null
-    }
+fun LiveData<RatesState>.getRates(): List<RateModel>? = this.value?.rates
+
+fun LiveData<RatesState>.getState(): RatesState =
+    this.value ?: RatesState(showProgress = false, rates = emptyList(), failure = null)
 
 fun List<RateModel>.getBaseCountryCode(): String =
     this.firstOrNull()?.countryCode ?: "EUR"

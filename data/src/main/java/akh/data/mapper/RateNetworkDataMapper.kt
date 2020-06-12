@@ -32,7 +32,6 @@ fun RatesResponseModel.mapToRatesModel(): RatesModel {
             "100",
             true
         ),
-        date = date ?: "",
         rates = rates
     )
 }
@@ -51,7 +50,6 @@ fun RatesResponseModel.mapToActualRatesModel(): ActualRatesModel {
     }
     return ActualRatesModel(
         base = this.base ?: "",
-        date = date ?: "",
         actualRates = actualRates
     )
 }

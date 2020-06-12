@@ -5,8 +5,7 @@ import dagger.Module
 @Suppress("unused")
 @Module(
     includes = [
-        MainActivityModule::class,
-        SplashActivityModule::class
+        MainActivityModule::class
     ]
 )
 interface ActivityModule

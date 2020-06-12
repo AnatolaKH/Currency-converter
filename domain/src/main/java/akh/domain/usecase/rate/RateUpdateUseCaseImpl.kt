@@ -1,6 +1,6 @@
 package akh.domain.usecase.rate
 
-import akh.core.base.onNext
+import akh.core.base.Failure
 import akh.core.model.ActualRatesModel
 import akh.core.model.RateModel
 import akh.core.usecase.RateUpdateUseCase
@@ -9,15 +9,11 @@ import akh.domain.common.getBaseCountryCode
 import akh.domain.common.updateRates
 import akh.domain.common.withDefault
 import akh.domain.usecase.BaseUseCase
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import kotlinx.coroutines.*
-import java.io.Closeable
-import java.io.IOException
-import java.util.HashMap
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class RateUpdateUseCaseImpl @Inject constructor(
     private val rateUseCase: RateUseCase
@@ -28,20 +24,22 @@ class RateUpdateUseCaseImpl @Inject constructor(
 
     override fun updateRates(
         getActualRates: () -> List<RateModel>,
-        updateRates: (List<RateModel>) -> Unit
+        updateRates: (List<RateModel>) -> Unit,
+        failure: (Failure) -> Unit
     ) {
         if (rateJob?.isActive != true)
             rateJob = useCaseScope.launch {
-                getLastRates(getActualRates, updateRates)
+                getLastRates(getActualRates, updateRates, failure)
             }
     }
 
     private suspend fun getLastRates(
         getActualRates: () -> List<RateModel>,
-        updateRates: (List<RateModel>) -> Unit
+        updateRates: (List<RateModel>) -> Unit,
+        failure: (Failure) -> Unit
     ) = withDefault {
         rateUseCase.getActualRates(getActualRates().getBaseCountryCode())
-            .onNext { updateRates(it, getActualRates(), updateRates) }
+            .either(failure, { updateRates(it, getActualRates(), updateRates) } )
     }
 
     @Synchronized

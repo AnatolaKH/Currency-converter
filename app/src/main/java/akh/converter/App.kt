@@ -1,8 +1,8 @@
 package akh.converter
 
-import akh.core.App
 import akh.converter.common.TimberReleaseTree
 import akh.converter.di.AppComponent
+import akh.core.app.App
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
@@ -26,10 +26,10 @@ class App : DaggerApplication(), App {
 
     private fun createAppComponent() = AppComponent.Initializer.init(this)
 
-    private fun initTimber() {
-        if (BuildConfig.DEBUG)
-            Timber.plant(Timber.DebugTree())
-        else Timber.plant(TimberReleaseTree())
-    }
+    private fun initTimber() =
+        Timber.plant(
+            if (BuildConfig.DEBUG) Timber.DebugTree()
+            else TimberReleaseTree()
+        )
 
 }

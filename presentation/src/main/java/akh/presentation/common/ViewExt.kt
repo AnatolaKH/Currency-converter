@@ -4,15 +4,14 @@ import android.app.Service
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.row_rate.*
 
 fun View.showKeyboard() {
     (context?.getSystemService(Service.INPUT_METHOD_SERVICE) as? InputMethodManager)
@@ -28,6 +27,10 @@ fun View.toVisible() {
     this.visibility = View.VISIBLE
 }
 
+fun View.toggleGone(isVisible: Boolean) {
+    this.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
 fun View.toGone() {
     this.visibility = View.GONE
 }
@@ -36,8 +39,22 @@ fun View.toInvisible() {
     this.visibility = View.GONE
 }
 
+fun RecyclerView.applyElevationOnScroll(target: View, maxElevation: Int) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            target.elevation = recyclerView.computeVerticalScrollOffset()
+                .coerceAtMost(maxElevation)
+                .toFloat()
+        }
+    })
+}
+
 fun ImageView.loadImage(@DrawableRes resId: Int) =
-    Glide.with(context).load(resId).apply(RequestOptions().override(this.width, this.height)).into(this)
+    Glide.with(context)
+        .load(resId)
+        .apply(RequestOptions().override(this.width, this.height))
+        .into(this)
 
 fun AppCompatTextView.setTextFutureExt(text: String) =
     setTextFuture(

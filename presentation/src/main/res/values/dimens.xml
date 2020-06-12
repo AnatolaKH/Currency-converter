@@ -1,3 +1,10 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+
+    <dimen name="default_padding">16dp</dimen>
+
+    <!--    RATES-->
+
+    <dimen name="rate_title_padding">72dp</dimen>
+    <dimen name="rate_country_image_size">40dp</dimen>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RootTheme" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="android:ambientShadowAlpha">0.02</item>
+        <item name="android:outlineAmbientShadowColor">@color/colorPrimary</item>
+        <item name="android:spotShadowAlpha">0.09</item>
+        <item name="android:outlineSpotShadowColor">@color/colorPrimary</item>
+    </style>
+
+</resources>

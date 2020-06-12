@@ -11,7 +11,7 @@ android {
     apply from: '../flavorsCommon.gradle'
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion androidMinSdkVersion
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

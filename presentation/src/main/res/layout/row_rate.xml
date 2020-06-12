@@ -7,9 +7,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCountry"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="16dp"
+        android:layout_width="@dimen/rate_country_image_size"
+        android:layout_height="@dimen/rate_country_image_size"
+        android:layout_margin="@dimen/default_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,11 +17,12 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCountryCode"
+        style="?android:textAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
         app:layout_constraintBottom_toTopOf="@id/tvCountryTitle"
         app:layout_constraintEnd_toStartOf="@+id/etExchange"
         app:layout_constraintStart_toEndOf="@id/ivCountry"
@@ -30,12 +31,12 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCountryTitle"
+        style="?android:textAppearanceSmall"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        style="@style/HintText"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/etExchange"
         app:layout_constraintStart_toEndOf="@id/ivCountry"
@@ -44,10 +45,10 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etExchange"
-        style="@style/EditText"
+        style="?android:textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/default_margin"
         android:gravity="end"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"

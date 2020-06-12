@@ -13,12 +13,10 @@ data class RateModel(
 
 class RatesModel(
     val base: RateModel,
-    val date: String,
     val rates: List<RateModel>
 )
 
 class ActualRatesModel(
     val base: String,
-    val date: String,
     val actualRates: Map<String, Double>
 )

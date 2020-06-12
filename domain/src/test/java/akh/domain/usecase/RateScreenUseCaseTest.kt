@@ -2,6 +2,7 @@ package akh.domain.usecase
 
 import akh.core.base.Failure
 import akh.core.base.Result
+import akh.core.model.RateModel
 import akh.core.model.RatesState
 import akh.core.usecase.RateUpdateUseCase
 import akh.core.usecase.RateUseCase
@@ -21,23 +22,25 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
     @Before
     override fun setUp() {
         super.setUp()
-        useCase = spyk(RateScreenUseCaseImpl(rateUseCase, rateUpdateUseCase), recordPrivateCalls = true)
+        useCase =
+            spyk(RateScreenUseCaseImpl(rateUseCase, rateUpdateUseCase), recordPrivateCalls = true)
     }
 
     @Test
     fun `Get rates - response success`() = runBlocking {
         // prepare
         val fakeResponse = getFakeRatesResponse()
-        val fakeRates = mutableListOf(fakeResponse.base).apply { addAll(fakeResponse.rates)}
+        val fakeRates = mutableListOf(fakeResponse.base).apply { addAll(fakeResponse.rates) }
         val response = Result.Success(fakeResponse)
+        coEvery { rateUseCase.getSaveRates() } coAnswers { fakeRates}
         coEvery { rateUseCase.getRates() } coAnswers { response }
         // call
         useCase.getRates()
         coVerifyOrder {
             useCase.getRates()
             useCase["postProgressState"]()
-            useCase["setRates"](fakeResponse)
-            useCase["calculateRates"](fakeResponse.base.exchange, fakeRates)
+//            useCase["setRates"](fakeResponse)
+//            useCase["calculateRates"](fakeResponse.base.exchange, fakeRates)
             useCase["postSuccessState"](fakeRates)
             useCase["releaseRatesAutoUpdates"]()
             useCase["stopRatesAutoUpdates"]()
@@ -48,7 +51,7 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         // assert
         Assert.assertNotNull(useCase.rateLiveData.value)
         Assert.assertEquals(
-            (useCase.rateLiveData.value as RatesState.SuccessState).rates,
+            useCase.rateLiveData.value?.rates,
             fakeRates
         )
     }
@@ -57,6 +60,7 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
     fun `Get rates - response failure`() = runBlocking {
         // prepare
         val response = Result.Error(Failure.SimpleFailure(""))
+        coEvery { rateUseCase.getSaveRates() } coAnswers { emptyList() }
         coEvery { rateUseCase.getRates() } coAnswers { response }
         // call
         useCase.getRates()
@@ -68,7 +72,7 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         confirmVerified(useCase)
         // assert
         Assert.assertNotNull(useCase.rateLiveData.value)
-        Assert.assertTrue(useCase.rateLiveData.value is RatesState.FailureState)
+        Assert.assertTrue(useCase.rateLiveData.value?.failure != null)
     }
 
 }

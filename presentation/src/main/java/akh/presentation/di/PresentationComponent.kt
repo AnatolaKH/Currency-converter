@@ -1,15 +1,20 @@
 package akh.presentation.di
 
 import akh.core.di.DomainToolsProvider
+import akh.core.di.PresentationDataToolsProvider
 import akh.core.di.PresentationToolsProvider
-import akh.presentation.di.module.ActivityModule
-import akh.presentation.di.module.mvvm.ViewModelFactoryModule
-import akh.presentation.di.module.mvvm.ViewModelModule
+import akh.presentation.di.module.presentation.AppThemeProviderModule
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(
     dependencies = [
-        DomainToolsProvider::class
+        DomainToolsProvider::class,
+        PresentationDataToolsProvider::class
+    ],
+    modules = [
+        AppThemeProviderModule::class
     ]
 )
 interface PresentationComponent : PresentationToolsProvider {
@@ -18,9 +23,13 @@ interface PresentationComponent : PresentationToolsProvider {
 
         companion object {
 
-            fun init(domainToolsProvider: DomainToolsProvider): PresentationToolsProvider =
+            fun init(
+                domainToolsProvider: DomainToolsProvider,
+                presentationDataToolsProvider: PresentationDataToolsProvider
+            ): PresentationToolsProvider =
                 DaggerPresentationComponent.builder()
                     .domainToolsProvider(domainToolsProvider)
+                    .presentationDataToolsProvider(presentationDataToolsProvider)
                     .build()
         }
     }

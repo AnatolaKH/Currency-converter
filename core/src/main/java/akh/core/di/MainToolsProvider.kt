@@ -1,6 +1,6 @@
 package akh.core.di
 
-import akh.core.App
+import akh.core.app.App
 
 interface MainToolsProvider {
 

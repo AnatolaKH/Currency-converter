@@ -17,7 +17,7 @@ ext {
     retrofitConverterGsonLib = "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     core_ktx_version = '1.0.1'
-    fragment_ktx_version = '1.1.0'
+    fragment_ktx_version = '1.3.0-alpha04'
     ktxCoreLib = "androidx.core:core-ktx:$core_ktx_version"
     ktxFragmentLib = "androidx.fragment:fragment-ktx:$fragment_ktx_version"
 
@@ -37,7 +37,7 @@ ext {
     glide_version = '4.9.0'
     glideLib = "com.github.bumptech.glide:glide:$glide_version"
 
-    kotlinx_coroutines_version = '1.3.1'
+    kotlinx_coroutines_version = '1.3.6'
     kotlin_coroutines_test_version = '1.3.0-RC'
     kotlinxCoroutinesCoreLib = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     kotlinxCoroutinesAndroidLib = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
@@ -67,5 +67,8 @@ ext {
 
     glide_version = '4.9.0'
     glideLib = "com.github.bumptech.glide:glide:$glide_version"
+
+    security_version = "1.0.0-alpha02"
+    androidxSecurityCryptoLib = "androidx.security:security-crypto:$security_version"
 }
 

@@ -1,30 +1,9 @@
 <resources>
 
-    <style name="TextViewStyle" parent="android:Widget.Material.TextView">
-        <item name="android:fontFamily">@font/jet_brains_mono</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textSize">16sp</item>
-    </style>
+    <!--    BASE-->
 
-    <style name="BoldText" parent="TextViewStyle">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="BoldText.Title" >
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="HintText" parent="TextViewStyle">
-        <item name="android:textColor">@color/textColorTertiary</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="EditText" parent="TextViewStyle">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="ButtonStyle" parent="android:Widget.Material.Button.Borderless">
-        <item name="android:fontFamily">@font/jet_brains_mono</item>
+    <style name="Button" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:textAppearance">@style/Text</item>
         <item name="android:textColor">@color/buttonTextColor</item>
         <item name="android:backgroundTint">@color/colorAccent</item>
         <item name="shapeAppearanceOverlay">@style/ButtonShapeAppearance</item>
@@ -33,6 +12,54 @@
     <style name="ButtonShapeAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">4dp</item>
+    </style>
+
+    <!--    LIGHT-->
+
+    <style name="Text" parent="android:Widget.Material.TextView">
+        <item name="android:fontFamily">@font/jet_brains_mono</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BoldText" parent="Text">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallText" parent="Text">
+        <item name="android:textColor">@color/textColorTertiary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MediumText" parent="Text">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="LargeText" parent="BoldText">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--    DARK-->
+
+    <style name="TextDark" parent="Text">
+        <item name="android:textColor">@color/textColorDark</item>
+    </style>
+
+    <style name="BoldTextDark" parent="TextDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallTextDark" parent="TextDark">
+        <item name="android:textColor">@color/textColorTertiaryDark</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MediumTextDark" parent="TextDark">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="LargeTextDark" parent="BoldTextDark">
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

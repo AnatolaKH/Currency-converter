@@ -1,4 +1,4 @@
-package akh.core
+package akh.core.app
 
 import android.content.Context
 

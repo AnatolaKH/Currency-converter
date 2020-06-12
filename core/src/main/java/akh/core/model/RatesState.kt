@@ -2,12 +2,8 @@ package akh.core.model
 
 import akh.core.base.Failure
 
-
-sealed class RatesState{
-    object LoadingState: RatesState()
-    class FailureState(val failure: Failure): RatesState()
-    class SuccessState(val rates: List<RateModel>): RatesState()
-}
-
-
-
+data class RatesState(
+    val showProgress: Boolean,
+    val rates: List<RateModel>,
+    val failure: Failure?
+)

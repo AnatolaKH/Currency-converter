@@ -1,5 +1,6 @@
 package akh.domain.usecase
 
+import akh.core.base.Failure
 import akh.core.base.Result
 import akh.core.model.RateModel
 import akh.core.usecase.RateUseCase
@@ -28,11 +29,11 @@ class RateUpdateUseCaseTest : BaseUseCaseTest<RateUpdateUseCaseImpl>() {
         val response = Result.Success(getFakeActualRatesResponse())
         coEvery { rateUseCase.getActualRates(baseRate) } coAnswers { response }
         // call
-        useCase.updateRates(::getActualRates, ::updateRates)
+        useCase.updateRates(::getActualRates, ::updateRates, failure)
         coVerifyOrder {
-            useCase.updateRates(::getActualRates, ::updateRates)
+            useCase.updateRates(::getActualRates, ::updateRates, failure)
             useCase.useCaseScope
-            useCase["getLastRates"](::getActualRates, ::updateRates)
+            useCase["getLastRates"](::getActualRates, ::updateRates, failure)
             useCase["updateRates"](response.b, getActualRates(), ::updateRates)
         }
         confirmVerified(useCase)
@@ -46,4 +47,6 @@ class RateUpdateUseCaseTest : BaseUseCaseTest<RateUpdateUseCaseImpl>() {
     private fun updateRates(rates: List<RateModel>) {
         this.rates = rates
     }
+
+    private val failure: (Failure) -> Unit = {}
 }

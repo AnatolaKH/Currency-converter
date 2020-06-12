@@ -23,6 +23,10 @@ class ConverterViewModel @Inject constructor(
         rateScreenUseCase.getRates()
     }
 
+    fun updateRates() = viewModelScope.launch {
+        rateScreenUseCase.updateRates()
+    }
+
     fun exchange(exchange: String) = viewModelScope.launch {
         rateScreenUseCase.exchange(exchange)
     }

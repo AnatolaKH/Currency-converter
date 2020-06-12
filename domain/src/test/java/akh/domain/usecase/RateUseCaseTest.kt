@@ -3,6 +3,7 @@ package akh.domain.usecase
 import akh.core.base.Failure
 import akh.core.base.Result
 import akh.core.repository.RateRepository
+import akh.core.repository.SecretDBRepository
 import akh.domain.base.BaseUseCaseTest
 import akh.domain.usecase.rate.RateUseCaseImpl
 import io.mockk.*
@@ -14,11 +15,15 @@ import org.junit.Test
 class RateUseCaseTest : BaseUseCaseTest<RateUseCaseImpl>() {
 
     private val rateRepository = mockk<RateRepository>(relaxed = true)
+    private val secretDBRepository = mockk<SecretDBRepository>(relaxed = true)
 
     @Before
     override fun setUp() {
         super.setUp()
-        useCase = spyk(RateUseCaseImpl(rateRepository), recordPrivateCalls = true)
+        useCase = spyk(
+            RateUseCaseImpl(rateRepository, secretDBRepository),
+            recordPrivateCalls = true
+        )
     }
 
     @Test
@@ -76,7 +81,7 @@ class RateUseCaseTest : BaseUseCaseTest<RateUseCaseImpl>() {
         val response = Result.Error(Failure.SimpleFailure(""))
         coEvery { rateRepository.getActualRates("EUR") } coAnswers { response }
         // call
-        val result =  useCase.getActualRates("EUR")
+        val result = useCase.getActualRates("EUR")
         coVerifyOrder {
             useCase.getActualRates("EUR")
         }

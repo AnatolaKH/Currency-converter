@@ -9,6 +9,7 @@ ext {
             kotlinxCoroutinesCore   : kotlinxCoroutinesCoreLib,
             kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib,
             timber                  : timberLib,
+            androidxSecurityCrypto  : androidxSecurityCryptoLib,
     ]
 
     injectorKaptDependency = [
@@ -29,7 +30,8 @@ ext {
             kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib,
             okhttp3                 : okhttp3Lib,
             okhttp3Logging          : okhttp3LoggingLib,
-            timber                  : timberLib
+            timber                  : timberLib,
+            androidxSecurityCrypto  : androidxSecurityCryptoLib,
     ]
 
     dataKaptDependency = [
@@ -79,7 +81,8 @@ ext {
             adapterDelegates4         : adapterDelegates4Lib,
             timber                    : timberLib,
             googleAndroidMaterial     : googleAndroidMaterialLib,
-            glide     : glideLib
+            glide                     : glideLib,
+            ktxFragment               : ktxFragmentLib
     ]
 
     presentationKaptDependency = [

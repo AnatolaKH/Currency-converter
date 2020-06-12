@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    MAIN-->
+
     <color name="colorPrimary">@color/primary</color>
     <color name="colorPrimaryDark">@color/primaryDark</color>
     <color name="colorAccent">@color/accent</color>
+
+    <color name="scrollbarColorThumbVertical">@color/tertiary</color>
+
+    <!--    LIGHT-->
 
     <color name="bgColor">@color/bg</color>
 
@@ -10,4 +16,13 @@
     <color name="textColorTertiary">@color/textTertiary</color>
 
     <color name="buttonTextColor">@color/buttonText</color>
+
+    <!--    DARK-->
+
+    <color name="bgColorDark">@color/bgDark</color>
+
+    <color name="textColorDark">@color/textDark</color>
+    <color name="textColorTertiaryDark">@color/textTertiaryDark</color>
+
+    <color name="buttonTextColorDark">@color/buttonTextDark</color>
 </resources>

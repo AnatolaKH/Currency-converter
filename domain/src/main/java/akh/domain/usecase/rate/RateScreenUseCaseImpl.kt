@@ -9,11 +9,11 @@ import akh.core.usecase.RateUpdateUseCase
 import akh.core.usecase.RateUseCase
 import akh.domain.common.calculateExchange
 import akh.domain.common.getRates
+import akh.domain.common.getState
 import akh.domain.common.withDefault
 import akh.domain.usecase.BaseUseCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -48,7 +48,8 @@ class RateScreenUseCaseImpl @Inject constructor(
     private var rateTimer: Timer? = null
 
     private fun startRatesAutoUpdates() {
-        rateTimer = timer(initialDelay = 1000, daemon = true, period = 1000) { updateRates() }
+        rateTimer =
+            timer(initialDelay = 1000, daemon = true, period = 30000) { updateCurrentRates() }
     }
 
     private fun stopRatesAutoUpdates() {
@@ -59,13 +60,31 @@ class RateScreenUseCaseImpl @Inject constructor(
     }
 
     private fun postProgressState() =
-        rateMutableLiveData.postValue(RatesState.LoadingState)
+        rateMutableLiveData.postValue(
+            rateMutableLiveData.getState().copy(
+                showProgress = true,
+                failure = null
+            )
+        )
 
-    private fun postSuccessState(rates: List<RateModel>) =
-        rateMutableLiveData.postValue(RatesState.SuccessState(rates))
+    private fun postSuccessState(rates: List<RateModel>) {
+        rateUseCase.saveRates(rates = rates)
+        rateMutableLiveData.postValue(
+            rateMutableLiveData.getState().copy(
+                showProgress = false,
+                rates = rates,
+                failure = null
+            )
+        )
+    }
 
     private fun postFailureState(failure: Failure) =
-        rateMutableLiveData.postValue(RatesState.FailureState(failure))
+        rateMutableLiveData.postValue(
+            rateMutableLiveData.getState().copy(
+                showProgress = false,
+                failure = failure
+            )
+        )
 
     @Synchronized
     private fun getLastRates() = rateLiveData.getRates()
@@ -73,12 +92,25 @@ class RateScreenUseCaseImpl @Inject constructor(
     override suspend fun getRates() {
         postProgressState()
         withDefault {
-            rateUseCase.getRates().either(::postFailureState, ::setRates)
+            val saveRates = rateUseCase.getSaveRates()
+            if (saveRates.isNotEmpty()) {
+                postSuccessState(saveRates)
+                releaseRatesAutoUpdates()
+            } else
+                rateUseCase.getRates().either(::postFailureState, ::setRates)
         }
     }
 
-    private fun updateRates() {
-        rateUpdateUseCase.updateRates({ getLastRates() ?: emptyList() }, ::postSuccessState)
+    override suspend fun updateRates() = withDefault {
+        rateUpdateUseCase.updateRates(
+            { getLastRates() ?: emptyList() },
+            ::postSuccessState,
+            ::postFailureState
+        )
+    }
+
+    private fun updateCurrentRates() {
+        rateUpdateUseCase.updateRates({ getLastRates() ?: emptyList() }, ::postSuccessState, {})
     }
 
     @Synchronized
@@ -93,6 +125,7 @@ class RateScreenUseCaseImpl @Inject constructor(
             rates.removeAt(targetIndex)
             rates.add(0, temp)
             postSuccessState(rates)
+            releaseRatesAutoUpdates()
         } ?: Unit
     }
 
