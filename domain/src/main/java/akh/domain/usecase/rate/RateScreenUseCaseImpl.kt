@@ -84,7 +84,13 @@ class RateScreenUseCaseImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateRates() = withDefault {
+    override suspend fun updateRates() {
+        if (getLastRates() == null)
+            getRates()
+        else forceUpdateCurrentRates()
+    }
+
+    private suspend fun forceUpdateCurrentRates() = withDefault {
         rateUpdateUseCase.updateRates(
             { getLastRates() ?: emptyList() },
             ::postSuccessState,
