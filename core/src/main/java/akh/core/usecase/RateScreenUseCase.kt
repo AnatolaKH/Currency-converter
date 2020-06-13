@@ -1,12 +1,14 @@
 package akh.core.usecase
 
+import akh.core.base.Failure
 import akh.core.model.RateModel
-import akh.core.model.RatesState
 import androidx.lifecycle.LiveData
 
-interface RateScreenUseCase: BaseUseCase {
+interface RateScreenUseCase : BaseUseCase {
 
-    val rateLiveData: LiveData<RatesState>
+    val ratesLiveData: LiveData<List<RateModel>>
+    val loadingLiveData: LiveData<Boolean>
+    val failureLiveData: LiveData<Failure>
 
     suspend fun setTarget(rate: RateModel)
 

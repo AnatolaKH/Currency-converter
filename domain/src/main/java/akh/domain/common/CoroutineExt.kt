@@ -5,11 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 suspend fun <T> withIO(block: suspend CoroutineScope.() -> T): T =
-    withContext(Dispatchers.IO) {
-        block.invoke(this)
-    }
+    withContext(Dispatchers.IO, block = block)
 
 suspend fun <T> withDefault(block: suspend CoroutineScope.() -> T): T =
-    withContext(Dispatchers.Default) {
-        block.invoke(this)
-    }
+    withContext(Dispatchers.Default, block = block)

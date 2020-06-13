@@ -3,13 +3,10 @@ package akh.domain.usecase.rate
 import akh.core.base.Failure
 import akh.core.model.RateModel
 import akh.core.model.RatesModel
-import akh.core.model.RatesState
 import akh.core.usecase.RateScreenUseCase
 import akh.core.usecase.RateUpdateUseCase
 import akh.core.usecase.RateUseCase
 import akh.domain.common.calculateExchange
-import akh.domain.common.getRates
-import akh.domain.common.getState
 import akh.domain.common.withDefault
 import akh.domain.usecase.BaseUseCase
 import androidx.lifecycle.LiveData
@@ -19,14 +16,18 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.concurrent.timer
 
-
 class RateScreenUseCaseImpl @Inject constructor(
     private val rateUseCase: RateUseCase,
     private val rateUpdateUseCase: RateUpdateUseCase
 ) : BaseUseCase(), RateScreenUseCase {
 
-    private val rateMutableLiveData = MutableLiveData<RatesState>()
-    override val rateLiveData: LiveData<RatesState> = rateMutableLiveData
+    private val rateMutableLiveData: MutableLiveData<List<RateModel>> = MutableLiveData()
+    private val loadingMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val failureMutableLiveData: MutableLiveData<Failure> = MutableLiveData()
+
+    override val ratesLiveData: LiveData<List<RateModel>> = rateMutableLiveData
+    override val loadingLiveData: LiveData<Boolean> = loadingMutableLiveData
+    override val failureLiveData: LiveData<Failure> = failureMutableLiveData
 
     private fun setRates(ratesModel: RatesModel) {
         val rates = ratesModel.rates.toMutableList()
@@ -59,38 +60,20 @@ class RateScreenUseCaseImpl @Inject constructor(
         }
     }
 
-    private fun postProgressState() =
-        rateMutableLiveData.postValue(
-            rateMutableLiveData.getState().copy(
-                showProgress = true,
-                failure = null
-            )
-        )
-
     private fun postSuccessState(rates: List<RateModel>) {
         rateUseCase.saveRates(rates = rates)
-        rateMutableLiveData.postValue(
-            rateMutableLiveData.getState().copy(
-                showProgress = false,
-                rates = rates,
-                failure = null
-            )
-        )
+        rateMutableLiveData.postValue(rates)
     }
 
-    private fun postFailureState(failure: Failure) =
-        rateMutableLiveData.postValue(
-            rateMutableLiveData.getState().copy(
-                showProgress = false,
-                failure = failure
-            )
-        )
+    private fun postLoadingState() = loadingMutableLiveData.postValue(true)
+
+    private fun postFailureState(failure: Failure) = failureMutableLiveData.postValue(failure)
 
     @Synchronized
-    private fun getLastRates() = rateLiveData.getRates()
+    private fun getLastRates() = ratesLiveData.value
 
     override suspend fun getRates() {
-        postProgressState()
+        postLoadingState()
         withDefault {
             val saveRates = rateUseCase.getSaveRates()
             if (saveRates.isNotEmpty()) {
@@ -109,9 +92,8 @@ class RateScreenUseCaseImpl @Inject constructor(
         )
     }
 
-    private fun updateCurrentRates() {
+    private fun updateCurrentRates() =
         rateUpdateUseCase.updateRates({ getLastRates() ?: emptyList() }, ::postSuccessState, {})
-    }
 
     @Synchronized
     override suspend fun setTarget(rate: RateModel) = withDefault {
@@ -142,5 +124,4 @@ class RateScreenUseCaseImpl @Inject constructor(
         stopRatesAutoUpdates()
         rateUpdateUseCase.onCleared()
     }
-
 }

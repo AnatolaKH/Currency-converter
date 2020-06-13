@@ -2,8 +2,6 @@ package akh.domain.usecase
 
 import akh.core.base.Failure
 import akh.core.base.Result
-import akh.core.model.RateModel
-import akh.core.model.RatesState
 import akh.core.usecase.RateUpdateUseCase
 import akh.core.usecase.RateUseCase
 import akh.domain.base.BaseUseCaseTest
@@ -32,13 +30,13 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         val fakeResponse = getFakeRatesResponse()
         val fakeRates = mutableListOf(fakeResponse.base).apply { addAll(fakeResponse.rates) }
         val response = Result.Success(fakeResponse)
-        coEvery { rateUseCase.getSaveRates() } coAnswers { fakeRates}
+        coEvery { rateUseCase.getSaveRates() } coAnswers { fakeRates }
         coEvery { rateUseCase.getRates() } coAnswers { response }
         // call
         useCase.getRates()
         coVerifyOrder {
             useCase.getRates()
-            useCase["postProgressState"]()
+            useCase["postLoadingState"]()
 //            useCase["setRates"](fakeResponse)
 //            useCase["calculateRates"](fakeResponse.base.exchange, fakeRates)
             useCase["postSuccessState"](fakeRates)
@@ -49,11 +47,8 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         }
         confirmVerified(useCase)
         // assert
-        Assert.assertNotNull(useCase.rateLiveData.value)
-        Assert.assertEquals(
-            useCase.rateLiveData.value?.rates,
-            fakeRates
-        )
+        Assert.assertNotNull(useCase.ratesLiveData.value)
+        Assert.assertEquals(useCase.ratesLiveData.value, fakeRates)
     }
 
     @Test
@@ -66,13 +61,13 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         useCase.getRates()
         coVerifyOrder {
             useCase.getRates()
-            useCase["postProgressState"]()
+            useCase["postLoadingState"]()
             useCase["postFailureState"](response.a)
         }
         confirmVerified(useCase)
         // assert
-        Assert.assertNotNull(useCase.rateLiveData.value)
-        Assert.assertTrue(useCase.rateLiveData.value?.failure != null)
+        Assert.assertNotNull(useCase.failureLiveData.value)
+        Assert.assertTrue(useCase.failureLiveData.value != null)
     }
 
 }

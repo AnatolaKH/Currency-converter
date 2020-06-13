@@ -32,5 +32,4 @@ class RateUseCaseImpl @Inject constructor(
     override suspend fun getSaveRates(): List<RateModel> = withIO {
         secretDBRepository.getRates()
     }
-
 }

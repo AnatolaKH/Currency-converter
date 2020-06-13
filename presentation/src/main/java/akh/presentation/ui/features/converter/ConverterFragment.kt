@@ -24,33 +24,12 @@ import javax.inject.Inject
 
 class ConverterFragment : BaseFragment() {
 
-    companion object {
-        const val ITEM_VIEW_CACHE_SIZE = 20
-        val TOOLBAR_ELEVATION = 6.dp()
-
-        fun newInstance() = ConverterFragment()
-    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by viewModels<ConverterViewModel> { viewModelFactory }
 
     private val rateAdapter: RateListAdapter by androidLazy {
         RateListAdapter(::changeTarget, ::exchange)
-    }
-
-    private fun setRatesState(ratesState: RatesState) {
-        progress.toggleGone(ratesState.showProgress)
-        rateAdapter.submitList(ratesState.rates)
-        retryButton.toggleGone(ratesState.failure != null)
-    }
-
-    private fun changeTarget(rateModel: RateModel) {
-        viewModel.setTarget(rateModel)
-    }
-
-    private fun exchange(exchange: String) {
-        viewModel.exchange(exchange)
     }
 
     override fun getLayoutID(): Int = R.layout.fragment_converter
@@ -100,7 +79,7 @@ class ConverterFragment : BaseFragment() {
     }
 
     override fun observeViewModel() {
-        observe(viewModel.rateLiveData, ::setRatesState)
+        observe(viewModel.screenState, ::setRatesState)
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? =
@@ -111,6 +90,20 @@ class ConverterFragment : BaseFragment() {
             } ?: super.onCreateAnimator(transit, enter, nextAnim)
         } else super.onCreateAnimator(transit, enter, nextAnim)
 
+    private fun setRatesState(ratesState: RatesState) {
+        progress.toggleGone(ratesState.showProgress)
+        rateAdapter.submitList(ratesState.rates)
+        retryButton.toggleGone(ratesState.failure != null)
+    }
+
+    private fun changeTarget(rateModel: RateModel) {
+        viewModel.setTarget(rateModel)
+    }
+
+    private fun exchange(exchange: String) {
+        viewModel.exchange(exchange)
+    }
+
     private fun getSettingsForAnimation(): Pair<View, Bundle>? =
         view?.let { safeView ->
             arguments?.takeIf { ViewCompat.isAttachedToWindow(safeView) }?.let { safeArguments ->
@@ -118,4 +111,11 @@ class ConverterFragment : BaseFragment() {
                 Pair(safeView, safeArguments)
             }
         }
+
+    companion object {
+        const val ITEM_VIEW_CACHE_SIZE = 20
+        val TOOLBAR_ELEVATION = 6.dp()
+
+        fun newInstance() = ConverterFragment()
+    }
 }

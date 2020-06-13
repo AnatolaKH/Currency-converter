@@ -39,7 +39,7 @@ class RateUpdateUseCaseImpl @Inject constructor(
         failure: (Failure) -> Unit
     ) = withDefault {
         rateUseCase.getActualRates(getActualRates().getBaseCountryCode())
-            .either(failure, { updateRates(it, getActualRates(), updateRates) } )
+            .either(failure, { updateRates(it, getActualRates(), updateRates) })
     }
 
     @Synchronized
@@ -61,5 +61,4 @@ class RateUpdateUseCaseImpl @Inject constructor(
         cancelChildren()
         cancel()
     }
-
 }
