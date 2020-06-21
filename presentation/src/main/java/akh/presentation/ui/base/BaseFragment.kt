@@ -46,7 +46,7 @@ abstract class BaseFragment : DaggerFragment() {
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
             fitsSystemWindows = true
-            addView(themeInflater.inflate(getLayoutID(), this, false))
+            themeInflater.inflate(getLayoutID(), this, true)
         }
     }
 
