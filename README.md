@@ -13,7 +13,7 @@
 
 ### Screenshots
 
-![](proj_description_img/CC_1.jpg) ![](proj_description_img/CC_2.jpg) ![](proj_description_img/CC_3.jpg)
+<img src="proj_description_img/CC_1.jpg" width="70%"> <img src="proj_description_img/CC_2.jpg" width="70%"> <img src="proj_description_img/CC_3.jpg" width="70%">
 
 ### Uses library
 
