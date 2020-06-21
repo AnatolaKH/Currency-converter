@@ -1,5 +1,6 @@
 package akh.data.di.module.network
 
+import akh.core.di.qualifire.Qualifiers.Named.NETWORK_REQUEST_V1
 import akh.data.request.NetworkRequest
 import akh.data.request.NetworkRequestV1Impl
 import dagger.Binds
@@ -13,7 +14,7 @@ internal interface NetworkRequestModule {
 
     @Singleton
     @Binds
-    @Named("v1")
+    @Named(NETWORK_REQUEST_V1)
     fun networkRequesterV1(networkRequestV1Impl: NetworkRequestV1Impl): NetworkRequest
 
 }

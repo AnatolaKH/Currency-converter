@@ -2,6 +2,7 @@ package akh.data.repository
 
 import akh.core.base.Failure
 import akh.core.base.Result
+import akh.core.di.qualifire.Qualifiers.Named.NETWORK_REQUEST_V1
 import akh.core.model.ActualRatesModel
 import akh.core.model.RatesModel
 import akh.core.repository.RateRepository
@@ -13,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class RateRepositoryImpl @Inject constructor(
-    @Named("v1") private val networkRequest: NetworkRequest,
+    @Named(NETWORK_REQUEST_V1) private val networkRequest: NetworkRequest,
     private val rateApi: RateApi
 ) : BaseRepository(), RateRepository {
 
