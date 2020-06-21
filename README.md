@@ -2,19 +2,18 @@
 
 ### Tasks
 
-- You should implement one screen with a list of currencies.
+- Implement one screen with a list of currencies.
 - Use [Api](https://api.exchangeratesapi.io/latest?base=EUR).
 - Getting a list of currency and rates.
-- Update rates every 1 second.
+- Update rates every 30 second.
 - Each row has an input where you can enter any amount of money.
 - When you tap on currency row it should slide to top and its input becomes first responder.
 - When you’re changing the amount the app must simultaneously update the corresponding value for other currencies.
-- Use any libraries and languages (java / kotlin) you want. Please, note that the solution should be production ready.
-- Additional feature: product flavors, some unit tests for business logic.
+- Additional feature: runtime switching current theme, product flavors, some unit tests for business logic.
 
 ### Screenshots
 
-![](proj_description_img/CC_1.jpg) ![](proj_description_img/CC_2.jpg)
+![](proj_description_img/CC_1.jpg) ![](proj_description_img/CC_2.jpg) ![](proj_description_img/CC_3.jpg)
 
 ### Uses library
 

@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 
 const val CX_ANIM = "cxAnim"
 const val CY_ANIM = "cyAnim"
+const val ANIMATION_DURATION = 450L
 
 fun Bundle.getExitAnimator(view: View): Animator {
 
@@ -24,7 +25,7 @@ fun Bundle.getExitAnimator(view: View): Animator {
     view.visibility = View.GONE
 
     return ViewAnimationUtils.createCircularReveal(view, cx, cy, startRadius, 0f).apply {
-        duration = 450
+        duration = ANIMATION_DURATION
     }
 }
 
