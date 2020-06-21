@@ -96,13 +96,9 @@ class ConverterFragment : BaseFragment() {
         retryButton.toggleGone(ratesState.failure != null)
     }
 
-    private fun changeTarget(rateModel: RateModel) {
-        viewModel.setTarget(rateModel)
-    }
+    private fun changeTarget(rateModel: RateModel) = viewModel.setTarget(rateModel)
 
-    private fun exchange(exchange: String) {
-        viewModel.exchange(exchange)
-    }
+    private fun exchange(exchange: String) = viewModel.exchange(exchange)
 
     private fun getSettingsForAnimation(): Pair<View, Bundle>? =
         view?.let { safeView ->

@@ -29,6 +29,42 @@ class RateScreenUseCaseImpl @Inject constructor(
     override val loadingLiveData: LiveData<Boolean> = loadingMutableLiveData
     override val failureLiveData: LiveData<Failure> = failureMutableLiveData
 
+    override suspend fun updateRates() {
+        if (getLastRates() == null)
+            getRates()
+        else forceUpdateCurrentRates()
+    }
+
+    @Synchronized
+    override suspend fun setTarget(rate: RateModel) = withDefault {
+        getLastRates()?.let { lastRates ->
+            val rates = ArrayList<RateModel>().apply {
+                lastRates.forEach { rate -> add(rate.copy(isBase = false)) }
+            }
+            val targetIndex = rates.indexOfFirst { mRate -> mRate.countryCode == rate.countryCode }
+            if (targetIndex < 0) return@withDefault
+            val temp = rates[targetIndex].copy(isBase = true)
+            rates.removeAt(targetIndex)
+            rates.add(0, temp)
+            postSuccessState(rates)
+            releaseRatesAutoUpdates()
+        } ?: Unit
+    }
+
+    override suspend fun exchange(exchange: String) = withDefault {
+        getLastRates()?.firstOrNull()?.exchange = exchange
+        val rates = ArrayList<RateModel>().apply {
+            getLastRates()?.forEach { rate -> add(rate.copy()) }
+        }
+        calculateRates(exchange, rates.toMutableList())
+        postSuccessState(rates)
+    }
+
+    override fun onCleared() {
+        stopRatesAutoUpdates()
+        rateUpdateUseCase.onCleared()
+    }
+
     private fun setRates(ratesModel: RatesModel) {
         val rates = ratesModel.rates.toMutableList()
         rates.add(0, ratesModel.base)
@@ -84,12 +120,6 @@ class RateScreenUseCaseImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateRates() {
-        if (getLastRates() == null)
-            getRates()
-        else forceUpdateCurrentRates()
-    }
-
     private suspend fun forceUpdateCurrentRates() = withDefault {
         rateUpdateUseCase.updateRates(
             { getLastRates() ?: emptyList() },
@@ -100,34 +130,4 @@ class RateScreenUseCaseImpl @Inject constructor(
 
     private fun updateCurrentRates() =
         rateUpdateUseCase.updateRates({ getLastRates() ?: emptyList() }, ::postSuccessState, {})
-
-    @Synchronized
-    override suspend fun setTarget(rate: RateModel) = withDefault {
-        getLastRates()?.let { lastRates ->
-            val rates = ArrayList<RateModel>().apply {
-                lastRates.forEach { rate -> add(rate.copy(isBase = false)) }
-            }
-            val targetIndex = rates.indexOfFirst { mRate -> mRate.countryCode == rate.countryCode }
-            if (targetIndex < 0) return@withDefault
-            val temp = rates[targetIndex].copy(isBase = true)
-            rates.removeAt(targetIndex)
-            rates.add(0, temp)
-            postSuccessState(rates)
-            releaseRatesAutoUpdates()
-        } ?: Unit
-    }
-
-    override suspend fun exchange(exchange: String) = withDefault {
-        getLastRates()?.firstOrNull()?.exchange = exchange
-        val rates = ArrayList<RateModel>().apply {
-            getLastRates()?.forEach { rate -> add(rate.copy()) }
-        }
-        calculateRates(exchange, rates.toMutableList())
-        postSuccessState(rates)
-    }
-
-    override fun onCleared() {
-        stopRatesAutoUpdates()
-        rateUpdateUseCase.onCleared()
-    }
 }

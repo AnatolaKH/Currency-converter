@@ -33,6 +33,14 @@ class RateUpdateUseCaseImpl @Inject constructor(
             }
     }
 
+    override fun unsubscribe() =
+        useCaseScope.coroutineContext.cancelChildren()
+
+    override fun onCleared() = with(useCaseScope.coroutineContext) {
+        cancelChildren()
+        cancel()
+    }
+
     private suspend fun getLastRates(
         getActualRates: () -> List<RateModel>,
         updateRates: (List<RateModel>) -> Unit,
@@ -52,13 +60,5 @@ class RateUpdateUseCaseImpl @Inject constructor(
         val items = ArrayList<RateModel>()
         rates.updateRates(items, actualRates, rates.firstOrNull()?.exchange ?: "")
         updateRates(items)
-    }
-
-    override fun unsubscribe() =
-        useCaseScope.coroutineContext.cancelChildren()
-
-    override fun onCleared() = with(useCaseScope.coroutineContext) {
-        cancelChildren()
-        cancel()
     }
 }
