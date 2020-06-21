@@ -1,6 +1,6 @@
 #  Currency converter
 
-### Tasks
+### Features
 
 - Implement one screen with a list of currencies.
 - Use [Api](https://api.exchangeratesapi.io/latest?base=EUR).
