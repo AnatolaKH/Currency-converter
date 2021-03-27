@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 class RateListAdapter(
     private val action: (target: RateModel) -> Unit,
     private val exchange: (value: String) -> Unit
-) : BaseRVListAdapter<RateModel>(RateDiffCallback()) {
+) : BaseRVListAdapter<RateModel>(RateDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RateModel> =
-         RateHolder.create(parent, action, exchange)
+        RateHolder.create(parent, action, exchange)
 
     override fun onBindViewHolder(holder: BaseHolder<RateModel>, position: Int) {
         if (holder is RateHolder) holder.bind(position == 0, getItem(position))
@@ -23,8 +23,8 @@ class RateListAdapter(
         position: Int,
         payloads: MutableList<Any>
     ) {
-        payloads.takeIf { it.isNotEmpty() }?.firstOrNull()?.let {
-            checkPayload(holder, position, it)
+        payloads.takeIf(List<*>::isNotEmpty)?.firstOrNull()?.let { anyPayloads ->
+            checkPayload(holder, position, anyPayloads)
         } ?: super.onBindViewHolder(holder, position, payloads)
     }
 
@@ -35,7 +35,7 @@ class RateListAdapter(
         }
     }
 
-    class RateDiffCallback : DiffUtil.ItemCallback<RateModel>() {
+    object RateDiffCallback : DiffUtil.ItemCallback<RateModel>() {
 
         override fun areItemsTheSame(oldItem: RateModel, newItem: RateModel): Boolean =
             oldItem.countryCode == newItem.countryCode
@@ -50,5 +50,4 @@ class RateListAdapter(
                 else -> null
             }
     }
-
 }

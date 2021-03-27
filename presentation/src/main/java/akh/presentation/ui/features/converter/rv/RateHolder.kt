@@ -2,7 +2,11 @@ package akh.presentation.ui.features.converter.rv
 
 import akh.core.model.RateModel
 import akh.presentation.R
-import akh.presentation.common.*
+import akh.presentation.common.hideKeyboard
+import akh.presentation.common.loadImage
+import akh.presentation.common.setOnSingleClickListener
+import akh.presentation.common.setTextFutureExt
+import akh.presentation.common.showKeyboard
 import akh.presentation.ui.base.BaseHolder
 import android.annotation.SuppressLint
 import android.text.Editable
@@ -39,7 +43,7 @@ class RateHolder(
     fun bind(isTarget: Boolean, item: RateModel) {
         bind(item)
         updateInputType(isTarget)
-        if(isTarget) etExchange?.requestFocus()
+        if (isTarget) etExchange?.requestFocus()
     }
 
     override fun bind(item: RateModel) {

@@ -14,9 +14,10 @@ class ConverterViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val screenStateLiveData = MediatorLiveData<RatesState>().apply {
-        addSource(rateScreenUseCase.ratesLiveData, this::ratesState)
-        addSource(rateScreenUseCase.loadingLiveData, this::loadingState)
-        addSource(rateScreenUseCase.failureLiveData, this::failureState)
+        val stateConverter = StateConverter(this)
+        addSource(rateScreenUseCase.ratesLiveData, stateConverter::rates)
+        addSource(rateScreenUseCase.loadingLiveData, stateConverter::loading)
+        addSource(rateScreenUseCase.failureLiveData, stateConverter::failure)
     }
     val screenState: LiveData<RatesState> = screenStateLiveData
 
@@ -24,15 +25,15 @@ class ConverterViewModel @Inject constructor(
         getRates()
     }
 
-    fun updateRates() = launch {
+    fun onUpdateRates() = launch {
         rateScreenUseCase.updateRates()
     }
 
-    fun exchange(exchange: String) = launch {
+    fun onExchange(exchange: String) = launch {
         rateScreenUseCase.exchange(exchange)
     }
 
-    fun setTarget(rate: RateModel) = launch {
+    fun onSetTarget(rate: RateModel) = launch {
         rateScreenUseCase.setTarget(rate)
     }
 

@@ -42,8 +42,7 @@ abstract class BaseFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUI(savedInstanceState)
-        observeViewModel()
-
+        observeData()
     }
 
     @LayoutRes
@@ -51,7 +50,7 @@ abstract class BaseFragment : DaggerFragment() {
 
     protected abstract fun setUI(savedInstanceState: Bundle?)
 
-    protected abstract fun observeViewModel()
+    protected abstract fun observeData()
 
     private fun cloneInflater(inflater: LayoutInflater): LayoutInflater =
             inflater.cloneInContext(
