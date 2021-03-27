@@ -10,11 +10,16 @@ import akh.presentation.common.theme.getExitAnimator
 import akh.presentation.ui.base.BaseFragment
 import akh.presentation.ui.features.converter.rv.RateListAdapter
 import android.animation.Animator
+import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,8 +37,18 @@ class ConverterFragment : BaseFragment() {
         RateListAdapter(::changeTarget, ::exchange)
     }
 
+    override val insetsListener: ((View, WindowInsetsCompat, Rect) -> WindowInsetsCompat) =
+            { view, insets, padding ->
+                view.updatePadding(
+                        top = padding.top + insets.systemWindowInsetTop,
+                        bottom = padding.bottom + insets.systemWindowInsetBottom
+                )
+                insets
+            }
+
     override fun getLayoutID(): Int = R.layout.fragment_converter
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun setUI(savedInstanceState: Bundle?) {
         ratesList.apply {
             ratesList.setItemViewCacheSize(ITEM_VIEW_CACHE_SIZE)
@@ -58,10 +73,10 @@ class ConverterFragment : BaseFragment() {
         retryButton.setOnSingleClickListener { viewModel.updateRates() }
 
         swipeToRefresh.setColorSchemeColors(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorPrimary
-            )
+                ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPrimary
+                )
         )
         swipeToRefresh.setOnRefreshListener {
             swipeToRefresh.isRefreshing = false
@@ -83,17 +98,17 @@ class ConverterFragment : BaseFragment() {
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? =
-        if (enter.not()) {
-            getSettingsForAnimation()?.let {
-                val (view, arguments) = it
-                arguments.getExitAnimator(view)
-            } ?: super.onCreateAnimator(transit, enter, nextAnim)
-        } else super.onCreateAnimator(transit, enter, nextAnim)
+            if (enter.not()) {
+                getSettingsForAnimation()?.let {
+                    val (view, arguments) = it
+                    arguments.getExitAnimator(view)
+                } ?: super.onCreateAnimator(transit, enter, nextAnim)
+            } else super.onCreateAnimator(transit, enter, nextAnim)
 
     private fun setRatesState(ratesState: RatesState) {
-        progress.toggleGone(ratesState.showProgress)
+        progress.isVisible = ratesState.showProgress
         rateAdapter.submitList(ratesState.rates)
-        retryButton.toggleGone(ratesState.failure != null)
+        retryButton.isVisible = ratesState.failure != null
     }
 
     private fun changeTarget(rateModel: RateModel) = viewModel.setTarget(rateModel)
@@ -101,12 +116,12 @@ class ConverterFragment : BaseFragment() {
     private fun exchange(exchange: String) = viewModel.exchange(exchange)
 
     private fun getSettingsForAnimation(): Pair<View, Bundle>? =
-        view?.let { safeView ->
-            arguments?.takeIf { ViewCompat.isAttachedToWindow(safeView) }?.let { safeArguments ->
-                safeArguments.getExitAnimator(safeView)
-                Pair(safeView, safeArguments)
+            view?.let { safeView ->
+                arguments?.takeIf { ViewCompat.isAttachedToWindow(safeView) }?.let { safeArguments ->
+                    safeArguments.getExitAnimator(safeView)
+                    Pair(safeView, safeArguments)
+                }
             }
-        }
 
     companion object {
         const val ITEM_VIEW_CACHE_SIZE = 20

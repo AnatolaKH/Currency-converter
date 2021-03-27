@@ -23,22 +23,6 @@ fun View.hideKeyboard() {
         ?.hideSoftInputFromWindow(this.windowToken, 0)
 }
 
-fun View.toVisible() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.toggleGone(isVisible: Boolean) {
-    this.visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
-fun View.toGone() {
-    this.visibility = View.GONE
-}
-
-fun View.toInvisible() {
-    this.visibility = View.GONE
-}
-
 fun RecyclerView.applyElevationOnScroll(target: View, maxElevation: Int) {
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

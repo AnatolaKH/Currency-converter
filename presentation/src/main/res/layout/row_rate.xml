@@ -17,12 +17,12 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCountryCode"
-        style="?android:textAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
+        android:textAppearance="?android:textAppearance"
         app:layout_constraintBottom_toTopOf="@id/tvCountryTitle"
         app:layout_constraintEnd_toStartOf="@+id/etExchange"
         app:layout_constraintStart_toEndOf="@id/ivCountry"
@@ -31,12 +31,12 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCountryTitle"
-        style="?android:textAppearanceSmall"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
+        android:textAppearance="?android:textAppearanceSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/etExchange"
         app:layout_constraintStart_toEndOf="@id/ivCountry"
