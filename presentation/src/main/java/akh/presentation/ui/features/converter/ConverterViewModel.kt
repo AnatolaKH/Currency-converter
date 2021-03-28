@@ -5,12 +5,14 @@ import akh.core.model.RatesState
 import akh.core.usecase.RateScreenUseCase
 import akh.presentation.common.launch
 import akh.presentation.ui.base.BaseViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class ConverterViewModel @Inject constructor(
     private val rateScreenUseCase: RateScreenUseCase
 ) : BaseViewModel() {

@@ -9,6 +9,6 @@ import kotlinx.coroutines.launch
 
 inline fun <T> Fragment.observe(flow: Flow<T>, crossinline block: (T) -> Unit) =
     lifecycleScope.launch {
-        flow.flowWithLifecycle(lifecycle)
+        flow.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .collect { action -> block.invoke(action) }
     }
