@@ -27,12 +27,6 @@ class RateScreenUseCaseImpl @Inject constructor(
     private val loadingChannel = ConflatedBroadcastChannel<Boolean>()
     private val failureChannel = ConflatedBroadcastChannel<Failure>()
 
-    override suspend fun updateRates() {
-        if (getLastRates() == null)
-            getRates()
-        else forceUpdateCurrentRates()
-    }
-
     override val rates: Flow<List<RateModel>> = rateChannel.asFlow()
     override val loading: Flow<Boolean> = loadingChannel.asFlow()
     override val failure: Flow<Failure> = failureChannel.asFlow()
@@ -60,6 +54,12 @@ class RateScreenUseCaseImpl @Inject constructor(
         }
         calculateRates(exchange, rates.toMutableList())
         postSuccessState(rates)
+    }
+
+    override suspend fun updateRates() {
+        if (getLastRates() == null)
+            getRates()
+        else forceUpdateCurrentRates()
     }
 
     override fun onCleared() {
