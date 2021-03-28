@@ -98,7 +98,7 @@ class ConverterFragment : BaseFragment() {
     }
 
     override fun observeData() {
-        observe(viewModel.screenState, ::render)
+        observe(viewModel.stateFlow, ::render)
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? =

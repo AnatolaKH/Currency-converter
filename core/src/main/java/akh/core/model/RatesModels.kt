@@ -1,12 +1,10 @@
 package akh.core.model
 
-import androidx.annotation.DrawableRes
-
 data class RateModel(
     val countryCode: String,
     val countryName: String,
     val rate: Double,
-    @DrawableRes val countryFlag: Int,
+    val countryFlag: Int,
     var exchange: String,
     var isBase: Boolean = false
 )

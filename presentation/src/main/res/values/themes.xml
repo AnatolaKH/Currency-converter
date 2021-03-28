@@ -4,6 +4,8 @@
     <style name="RootTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
 
     <style name="BaseTheme" parent="RootTheme">
+<!--        TODO refactor themes for api 29-->
+<!--        <item name="android:forceDarkAllowed">false</item>-->
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">true</item>
 

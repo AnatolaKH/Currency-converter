@@ -7,6 +7,7 @@ import akh.core.usecase.RateUseCase
 import akh.domain.base.BaseUseCaseTest
 import akh.domain.usecase.rate.RateScreenUseCaseImpl
 import io.mockk.*
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -37,18 +38,18 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         coVerifyOrder {
             useCase.getRates()
             useCase["postLoadingState"]()
-//            useCase["setRates"](fakeResponse)
-//            useCase["calculateRates"](fakeResponse.base.exchange, fakeRates)
+            useCase getProperty "useCaseScope"
             useCase["postSuccessState"](fakeRates)
+            useCase getProperty "useCaseScope"
             useCase["releaseRatesAutoUpdates"]()
             useCase["stopRatesAutoUpdates"]()
             useCase["startRatesAutoUpdates"]()
-
         }
         confirmVerified(useCase)
         // assert
-        Assert.assertNotNull(useCase.ratesLiveData.value)
-        Assert.assertEquals(useCase.ratesLiveData.value, fakeRates)
+
+        Assert.assertNotNull(useCase.rates.first())
+        Assert.assertEquals(useCase.rates.first(), fakeRates)
     }
 
     @Test
@@ -62,12 +63,12 @@ class RateScreenUseCaseTest : BaseUseCaseTest<RateScreenUseCaseImpl>() {
         coVerifyOrder {
             useCase.getRates()
             useCase["postLoadingState"]()
+            useCase getProperty "useCaseScope"
             useCase["postFailureState"](response.a)
+            useCase getProperty "useCaseScope"
         }
         confirmVerified(useCase)
         // assert
-        Assert.assertNotNull(useCase.failureLiveData.value)
-        Assert.assertTrue(useCase.failureLiveData.value != null)
+        Assert.assertNotNull(useCase.failure.first())
     }
-
 }

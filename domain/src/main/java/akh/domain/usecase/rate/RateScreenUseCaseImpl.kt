@@ -9,8 +9,10 @@ import akh.core.usecase.RateUseCase
 import akh.domain.common.calculateExchange
 import akh.domain.common.withDefault
 import akh.domain.usecase.BaseUseCase
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -21,19 +23,19 @@ class RateScreenUseCaseImpl @Inject constructor(
     private val rateUpdateUseCase: RateUpdateUseCase
 ) : BaseUseCase(), RateScreenUseCase {
 
-    private val rateMutableLiveData: MutableLiveData<List<RateModel>> = MutableLiveData()
-    private val loadingMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    private val failureMutableLiveData: MutableLiveData<Failure> = MutableLiveData()
-
-    override val ratesLiveData: LiveData<List<RateModel>> = rateMutableLiveData
-    override val loadingLiveData: LiveData<Boolean> = loadingMutableLiveData
-    override val failureLiveData: LiveData<Failure> = failureMutableLiveData
+    private val rateChannel = ConflatedBroadcastChannel<List<RateModel>>()
+    private val loadingChannel = ConflatedBroadcastChannel<Boolean>()
+    private val failureChannel = ConflatedBroadcastChannel<Failure>()
 
     override suspend fun updateRates() {
         if (getLastRates() == null)
             getRates()
         else forceUpdateCurrentRates()
     }
+
+    override val rates: Flow<List<RateModel>> = rateChannel.asFlow()
+    override val loading: Flow<Boolean> = loadingChannel.asFlow()
+    override val failure: Flow<Failure> = failureChannel.asFlow()
 
     @Synchronized
     override suspend fun setTarget(rate: RateModel) = withDefault {
@@ -98,15 +100,26 @@ class RateScreenUseCaseImpl @Inject constructor(
 
     private fun postSuccessState(rates: List<RateModel>) {
         rateUseCase.saveRates(rates = rates)
-        rateMutableLiveData.postValue(rates)
+        useCaseScope.launch {
+            rateChannel.send(rates)
+        }
     }
 
-    private fun postLoadingState() = loadingMutableLiveData.postValue(true)
+    private fun postLoadingState() {
+        useCaseScope.launch {
+            loadingChannel.send(true)
+        }
+    }
 
-    private fun postFailureState(failure: Failure) = failureMutableLiveData.postValue(failure)
+    private fun postFailureState(failure: Failure) {
+        useCaseScope.launch {
+            failureChannel.send(failure)
+        }
+    }
 
     @Synchronized
-    private fun getLastRates() = ratesLiveData.value
+    private fun getLastRates(): List<RateModel>? =
+        rateChannel.valueOrNull
 
     override suspend fun getRates() {
         postLoadingState()

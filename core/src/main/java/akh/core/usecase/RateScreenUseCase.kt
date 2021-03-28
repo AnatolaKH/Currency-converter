@@ -2,13 +2,13 @@ package akh.core.usecase
 
 import akh.core.base.Failure
 import akh.core.model.RateModel
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 interface RateScreenUseCase : BaseUseCase {
 
-    val ratesLiveData: LiveData<List<RateModel>>
-    val loadingLiveData: LiveData<Boolean>
-    val failureLiveData: LiveData<Failure>
+    val rates: Flow<List<RateModel>>
+    val loading: Flow<Boolean>
+    val failure: Flow<Failure>
 
     suspend fun setTarget(rate: RateModel)
 

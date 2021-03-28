@@ -1,12 +1,14 @@
 package akh.presentation.common
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-fun <T> LifecycleOwner.observe(liveData: LiveData<T>, action: (t: T) -> Unit) =
-    liveData.observe(this, Observer { it?.let(action) })
-
-fun <T> Fragment.observe(liveData: LiveData<T>, action: (t: T) -> Unit) =
-    viewLifecycleOwner.observe(liveData, action)
+inline fun <T> Fragment.observe(flow: Flow<T>, crossinline block: (T) -> Unit) =
+    lifecycleScope.launch {
+        flow.flowWithLifecycle(lifecycle)
+            .collect { action -> block.invoke(action) }
+    }

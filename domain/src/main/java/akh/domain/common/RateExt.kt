@@ -2,8 +2,6 @@ package akh.domain.common
 
 import akh.core.model.ActualRatesModel
 import akh.core.model.RateModel
-import akh.core.model.RatesState
-import androidx.lifecycle.LiveData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -13,11 +11,6 @@ fun RateModel.calculateExchange(exchange: String) {
             .setScale(2, RoundingMode.HALF_UP)
             .toString()
 }
-
-fun LiveData<RatesState>.getRates(): List<RateModel>? = this.value?.rates
-
-fun LiveData<RatesState>.getState(): RatesState =
-    this.value ?: RatesState(showProgress = false, rates = emptyList(), failure = null)
 
 fun List<RateModel>.getBaseCountryCode(): String =
     this.firstOrNull()?.countryCode ?: "EUR"

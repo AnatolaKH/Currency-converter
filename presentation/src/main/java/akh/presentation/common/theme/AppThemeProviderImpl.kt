@@ -22,8 +22,10 @@ class AppThemeProviderImpl @Inject constructor(
 
     override fun switchTheme() = when (appPresentationStorage.getCurrentTheme()) {
         CurrentTheme.DEFAULT -> switchDefaultCurrentTheme()
-        CurrentTheme.LIGHT -> appPresentationStorage.putCurrentTheme(CurrentTheme.DARK)
-        CurrentTheme.DARK -> appPresentationStorage.putCurrentTheme(CurrentTheme.LIGHT)
+        CurrentTheme.LIGHT -> appPresentationStorage.putCurrentTheme(
+            CurrentTheme.DARK)
+        CurrentTheme.DARK -> appPresentationStorage.putCurrentTheme(
+            CurrentTheme.LIGHT)
     }
 
     private fun getDefaultCurrentTheme() =
@@ -35,8 +37,10 @@ class AppThemeProviderImpl @Inject constructor(
 
     private fun switchDefaultCurrentTheme() =
         when (Resources.getSystem().configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> appPresentationStorage.putCurrentTheme(CurrentTheme.DARK)
-            Configuration.UI_MODE_NIGHT_YES -> appPresentationStorage.putCurrentTheme(CurrentTheme.LIGHT)
+            Configuration.UI_MODE_NIGHT_NO -> appPresentationStorage.putCurrentTheme(
+                CurrentTheme.DARK)
+            Configuration.UI_MODE_NIGHT_YES -> appPresentationStorage.putCurrentTheme(
+                CurrentTheme.LIGHT)
             else -> appPresentationStorage.putCurrentTheme(CurrentTheme.DARK)
         }
 }

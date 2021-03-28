@@ -42,7 +42,6 @@ ext {
     domainImplDependency = [
             kotlin                  : kotlinLib,
             ktxCore                 : ktxCoreLib,
-            androidxLifecycle       : androidxLifecycleLib,
             dagger2                 : daggerLib,
             dagger2Android          : daggerAndroidLib,
             dagger2AndroidSupport   : daggerAndroidSupportLib,
@@ -58,7 +57,6 @@ ext {
     domainTestImplDependency = [
             junit                   : junitLib,
             mockk                   : mockkLib,
-            androidxLifecycle       : androidxLifecycleLib,
             kotlinxCoroutinesCore   : kotlinxCoroutinesCoreLib,
             kotlinxCoroutinesAndroid: kotlinxCoroutinesAndroidLib,
             kotlinxCoroutinesTest   : kotlinxCoroutinesTestLib,
@@ -68,7 +66,7 @@ ext {
     presentationImplDependency = [
             kotlin                    : kotlinLib,
             androidxAppcompat         : androidxAppcompatLib,
-            androidxLifecycle         : androidxLifecycleLib,
+            androidxLifecycleRuntime  : androidxLifecycleRuntimeLib,
             androidxLifecycleViewModel: androidxLifecycleViewModelLib,
             androidxConstraintlayout  : androidxConstraintlayoutLib,
             androidxRecyclerview      : androidxRecyclerviewLib,
@@ -91,7 +89,6 @@ ext {
     ]
 
     coreImplDependency = [
-            androidxLifecycle: androidxLifecycleLib
+            androidxLifecycleRuntime: androidxLifecycleRuntimeLib
     ]
-
 }

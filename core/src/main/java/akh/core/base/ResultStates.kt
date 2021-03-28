@@ -12,7 +12,13 @@ sealed class Result<out L, out R> {
     fun <L> left(a: L) = Error(a)
     fun <R> right(b: R) = Success(b)
 
-    suspend fun either(functionLeft: (L) -> Any, functionRight: (R) -> Any): Any =
+    fun either(functionLeft: (L) -> Any, functionRight: (R) -> Any): Any =
+        when (this) {
+            is Error -> functionLeft(a)
+            is Success -> functionRight(b)
+        }
+
+    suspend fun sEither(functionLeft: suspend (L) -> Any, functionRight: suspend (R) -> Any): Any =
         when (this) {
             is Error -> functionLeft(a)
             is Success -> functionRight(b)
