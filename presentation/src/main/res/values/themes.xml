@@ -14,6 +14,13 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:buttonStyle">@style/Button</item>
+
+        <item name="android:textAppearance">@style/TextDark</item>
+        <item name="android:textAppearanceSmall">@style/SmallTextDark</item>
+        <item name="android:textAppearanceMedium">@style/MediumTextDark</item>
+        <item name="android:textAppearanceLarge">@style/LargeTextDark</item>
+
+        <item name="android:colorBackground">@color/bgColorDark</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme" />
