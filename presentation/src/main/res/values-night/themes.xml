@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.MaterialComponents.DayNight.NoActionBar.Night" parent="BaseTheme"/>
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Night"/>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Night">
+        <item name="android:colorBackground">@color/bgColorDark</item>
+    </style>
 </resources>
